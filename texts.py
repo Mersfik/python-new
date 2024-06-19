@@ -1,6 +1,6 @@
 import socket
 
-ports = [21,22,80,443,3306,25]
+ports = [21,22,80,443,3306,25,]
 
 for port in ports:
 
@@ -13,5 +13,7 @@ for port in ports:
         resposta = client.recv(1024)
         print(resposta.decode())
 
-    
+    else:
+        print (f"a porta {port} tá fechada.")
+        
     
