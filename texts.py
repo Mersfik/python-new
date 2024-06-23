@@ -1,19 +1,19 @@
 import socket
 
-ports = [21,22,80,443,3306,25,]
+target_host = "www.bancocn.com"
+target_port = 80
 
-for port in ports:
+#criando um objeto socket:
+client = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
 
-    client = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
-    client.settimeout(2.5)
-    code = client.connect_ex(("bancocn.com", port))
+#conectar ao cliente:
+client.connect ((target_host, target_port))
 
-    if code == 0:
-        client.send(b"Hello World")
-        resposta = client.recv(1024)
-        print(resposta.decode())
+#enviar dados ao cliente:
+client.send(b"GET / HTTP/ 1.1\r\nHost: bancocn.com\r\n\r\n")
 
-    else:
-        print (f"a porta {port} tá fechada.")
-        
+#receber dados do cliente:
+response = client.recv(4096)
+print(response.decode())
+client.close()
     
